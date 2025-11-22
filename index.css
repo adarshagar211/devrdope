@@ -341,3 +341,24 @@ img {
         scroll-padding: 20px;
     }
 }
+/* TOKENOMICS IMAGE — PERFECT RESPONSIVE SIZE */
+.tokenomics-img {
+    width: 90%;
+    max-width: 750px;   /* bigger on desktop */
+    height: auto;
+    object-fit: contain;
+}
+
+/* Medium Screens (tablets) */
+@media (max-width: 1024px) {
+    .tokenomics-img {
+        max-width: 600px;
+    }
+}
+
+/* Small screens (mobile) */
+@media (max-width: 640px) {
+    .tokenomics-img {
+        max-height: none;     /* Do NOT restrict height on mobile */
+    }
+}

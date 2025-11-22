@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEV ’R’ DOPE – Tokenomics</title>
+
+    <!-- Icons -->
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+    <link rel="alternate icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="manifest" href="images/site.webmanifest">
+
+    <!-- Tailwind -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="index.css" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+    <style>
+        body {
+            background-color: #000;
+            color: white;
+        }
+
+        .chart-container {
+            background: radial-gradient(circle at center, rgba(40, 40, 60, 1) 0%, rgba(10, 10, 15, 1) 80%);
+            border: 1px solid rgba(0, 229, 255, 0.25);
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.3);
+        }
+
+        .tokenomics-chart-wrapper {
+            max-width: 450px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 640px) {
+            .tokenomics-chart-wrapper {
+                max-width: 300px;
+            }
+        }
+
+        /* Neon Glow */
+        .neon-glow-effect {
+            box-shadow: 0 0 12px rgba(0, 255, 255, 0.35),
+                0 0 28px rgba(0, 255, 255, 0.18);
+        }
+    </style>
+
+</head>
+
+<body class="font-Montserrat bg-black">
+
+    <!-- HEADER -->
+    <nav class="nav-main">
+        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+            <a href="index.html" class="flex items-center space-x-3">
+                <img src="images/apple-touch-icon.png" class="h-12 rounded-full md:h-14" alt="logo" />
+                <span class="md:hidden lg:block text-lg md:text-3xl font-extrabold whitespace-nowrap"
+                    style="background-image: linear-gradient(to right, rgb(150, 24, 182), violet);
+                           color: transparent; -webkit-background-clip: text; background-clip: text;">
+                    DEV 'R' DOPE
+                </span>
+            </a>
+
+            <button type="button"
+                class="inline-flex items-center p-2 w-10 h-10 text-sm text-white md:hidden hover:bg-cyan-500"
+                onclick="toggleMenu()">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 17 14">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M1 1h15M1 7h15M1 13h15" />
+                </svg>
+            </button>
+
+            <div class="w-full md:block md:w-auto hidden" id="navbar-default">
+                <ul class="font-medium flex flex-col md:flex-row md:space-x-8">
+                    <li><a href="index.html" class="text-white text-xl hover:text-pink-500">HOME</a></li>
+                    <li><a href="index.html#about" class="text-white text-xl hover:text-pink-500">ABOUT</a></li>
+                    <li><a href="tokenomics.html" class="text-white text-xl text-pink-500">TOKENOMICS</a></li>
+                    <li><a href="index.html#social" class="text-white text-xl hover:text-pink-500">SOCIALS</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- PAGE CONTENT -->
+    <section class="py-10">
+        <div class="max-w-6xl mx-auto bg-black/70 backdrop-blur-[2px]
+                    p-6 sm:p-10 rounded-xl shadow-2xl shadow-cyan-800/50">
+
+            <header class="text-center mb-10">
+                <h1 class="text-5xl lg:text-7xl font-extrabold mb-8"
+                    style="background-image: linear-gradient(to right, rgb(150, 24, 182), rgb(159, 120, 148));
+                           color: transparent; -webkit-background-clip: text; background-clip: text;">
+                    Tokenomics
+                </h1>
+
+                <p class="text-xl md:text-2xl text-cyan-400 font-semibold">
+                    $DEVDOPE | Total Supply: 1,000,000,000
+                </p>
+            </header>
+
+            <div class="flex flex-col gap-10">
+
+                <!-- PIE CHART -->
+                <div class="w-full flex justify-center items-center p-6 rounded-xl chart-container shadow-2xl">
+                    <div class="tokenomics-chart-wrapper">
+                        <canvas id="tokenomicsChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- ALLOCATION CARDS -->
+                <div class="w-full space-y-4">
+                    <h2 class="text-3xl font-bold border-b-2 border-cyan-500 pb-2 mb-6 text-cyan-400"
+                        style="background-image: linear-gradient(to right, rgb(69, 24, 182), rgb(170, 167, 195));
+                           color: transparent; -webkit-background-clip: text; background-clip: text;">
+                        Allocation Breakdown
+                    </h2>
+
+                    <div id="legendContainer" class="space-y-4"></div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black text-white py-4 text-center">
+        <div class="flex flex-col items-center gap-3">
+            <img src="images/apple-touch-icon.png" class="h-12 w-12 rounded-full" alt="Dev'R'Dope Logo" />
+            <span class="text-sm">Copyright Dev'R'Dope © 2025. All rights reserved.</span>
+        </div>
+    </footer>
+
+    <!-- SCRIPT -->
+    <script src="tokenomics-script.js"></script>
+
+</body>
+
+</html>
